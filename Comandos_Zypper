@@ -1,3 +1,95 @@
 #Lista de Comandos do Zypper - OpenSuse
  > zypper update ou zypper up
 
+    1  ls
+    2  pwd
+    3  ls
+    4  cd ..
+    5  ls
+    6  cd ..
+    7  ls
+    8  cd aluno
+    9  pwd
+   10  cd /home/aluno
+   11  pwd
+   12  ls
+   13  cd bin
+   14  ls
+   15  ls -l
+   16  ls -la
+   17  ls -ld
+   18  cd ..
+   19  su root
+   20  exit
+   21  ls
+   22  su root
+   23  exit
+   24  ls
+   25  pwd
+   26  cd ..
+   27  ls
+   28  ls -l
+   29  cd ..
+   30  ls
+   31  cd aluno
+   32  cd /home/aluno
+   33  ls
+   34  cd bin
+   35  ls
+   36  mkdir -p Documentos/Repositorio/Zypper
+   37  cd / Documentos/Repositorio/Zypper
+   38  cd /Documentos/Repositorio/Zypper
+   39  ls
+   40  cd Documentos
+   41  ls
+   42  cd Repositorio/
+   43  ls
+   44  cd Zypper
+   45  ls
+   46  touch Comandos_Zypper
+   47  ls
+   48  vi Comandos_Zypper 
+   49  git init
+   50  ls
+   51  git add Comandos_Zypper 
+   52  git commit "Gerenciando pacotes Zypper"
+   53  git commit -m "Gerenciando pacotes Zypper"
+   54  git remote add origin https://github.com/amaranteDan/Zypper.git
+   55  git push -u origin master
+   56  git status
+   57  git config --global danz82158@gmail.com
+   58  git config --global user.name amaranteDan
+   59  git config --global user.mail danz82158@gmail.com
+   60  git push origin master
+   61  git clone https://github.com/amaranteDan/Zypper
+   62  ls
+   63  ls -l
+   64  mv Comandos_Zypper Zypper
+   65  ls
+   66  cd Zypper/
+   67  ls
+   68  git add
+   69  git add Comandos_Zypper 
+   70  git push -u origin master
+   71  git push -u origin 
+   72  cd ..
+   73  git push -u origin master
+   74  git init
+   75  cd Zypper/
+   76  git add Comandos_Zypper 
+   77  git commit -m "Gerenciando pacotes Zypper"
+   78  git config --global "Daniel Amarante"
+   79  git config --global user.mail "danz82158@gmail.com"
+   80  git remote add origin https://github.com/amaranteDan/Zypper.git
+   81  git push -u origin master
+   82  git config --global user.name "Daniel Amarante"
+   83  git config --global user.email "danz82158@gmail.com"
+   84  git init
+   85  git status
+   86  git commit -m "Gerenciando pacotes Zypper"
+   87  git remote add origin https://github.com/amaranteDan/Zypper
+   88  git push origin master
+   89  ls
+   90  cat history
+   91  history
+   92  history >> Comandos_Zypper 
