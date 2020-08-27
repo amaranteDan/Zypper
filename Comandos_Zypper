@@ -1,3 +1,235 @@
 #Lista de Comandos do Zypper - OpenSuse
  > zypper update ou zypper up
 > zypper refresh ou  zypper re "refresh repositorios"
+> zypper --non-interactive update "aplicar correcoes sem interacao
+> zypper update --auto-agree-with-licenses
+> zypper update -t package
+#################################################################
+Gerenciamento de Repositorios
+
+refresh, repos, addrepo, removerepo, modifyrepo, namerepo.
+
+Gerenciamento de Pacotes
+install, remove, update, dist-upgrade, source-install
+
+Pesquisa
+search, info, what-provides, list-updates, patch-check, patches, packages, patterns, products
+
+zypper se package
+zypper search -s --match-exact virtualbox-ose
+
+Travas
+
+locks, addlock, removelock
+
+*Utilitarios
+
+verify, install-new-recommends
+####################################################################################
+
+
+Instalacao
+
+> zypper install package
+> zypper -v install --repo factory package1 package 2 "usando repositorio factory"
+> zypper remove package
+***********************************************************************************
+####################################################################################
+Listar Repositorios
+
+> zypper lr
+> zypper rr 23 foo 4 vlc "Removendo repositorio"
+> zypper mr -d 6 "modifyrepo Desabilitando repositorio"
+####################################################################################
+Atualizar Repositorios
+zypper refresh
+zypper update -t package / up -t package
+zypper dist-upgrade
+####################################################################################
+
+Removendo Repositorio
+
+zypper remove / rr "repositorio"
+
+zypper mr -d 6 (desabilitando repositorio)
+zypper mr -rk -p "70 packman"
+####################################################################################
+
+Desabilitando cache RPM
+
+zypper mr -ka
+####################################################################################
+
+Habilitando cache RPM
+zypper mr -ka
+####################################################################################
+Outros Exemplos
+
+zypper in vim -emacs  -> desinstala emacs
+        |-> instala vim
+
+zypper in -f subversion (forca a reinstalacao do pacote "subversion")
+###################################################################################
+Desinstalando Pacotes
+
+zypper remove sqlite
+##################################################################################
+
+Adicionando Repositorio
+
+> zypper ar http://download.videolan.org/pub/vlc/suse/11.0 vlc "Exemplo"
+#########################################################################################
+
+******************************
+* Uso do Gerenciandor Zypper *
+******************************
+
+Uso:
+
+    zypper [--opções-globais] <comando> [--opções-de-comando] [argumentos]
+    zypper <subcomando> [--opções-de-comando] [argumentos]
+
+Opções globais:
+
+    --help, -h              Ajuda.
+    --version, -V           Exibir o número da versão.
+    --promptids             Exibir uma lista das entradas do usuário no zypper.
+    --config, -c <ARQUIVO>  Utilizar o arquivo de configuração especificado ao invés do padrão.
+    --userdata <TEXTO>      ID da transação definida pelo usuário usado no histórico e plug-ins.
+    --quiet, -q             Ocultar a saída normal, imprimir apenas mensagens de erro.
+    --verbose, -v           Aumenta a quantidade de detalhes.
+    --color
+    --no-color              Quando usar cores na saída se o tty suportar.
+    --no-abbrev, -A         Não abreviar textos em tabelas. Default: false
+    --table-style, -s <inteiro>
+                            Estilo de tabela (0-11).
+    --non-interactive, -n   Não perguntar nada, usar respostas padrão automaticamente. Default:
+                            false
+    --non-interactive-include-reboot-patches
+                            Não tratar correções como interativas, que possuem o indicador
+                            rebootSuggested configurado. Default: false
+    --xmlout, -x            Alternar para saída XML.
+    --ignore-unknown, -i    Ignorar pacotes desconhecidos. Default: false
+    --terse, -t             Saída baixa para o consumo da máquina. Implica --no-abbrev e --no-color.
+
+
+    --reposd-dir, -D <DIR>  Usar um diretório com um arquivo de definição de repositório
+                            alternativo.
+    --cache-dir, -C <DIR>   Usar um diretório alternativo para todos os caches.
+    --raw-cache-dir <DIR>   Usar um diretório alternativo para o cache de metadados brutos.
+    --solv-cache-dir <DIR>  Usar um diretório alternativo para o cache de arquivo solv.
+    --pkg-cache-dir <DIR>   Usar um diretório alternativo para o cache de pacotes.
+
+  Opções do repositório
+
+    --no-gpg-checks         Ignorar as falhas na verificação GPG e continuar. Default: false
+    --gpg-auto-import-keys  Confiar automaticamente e importar as chaves de assinatura do novo
+                            repositório.
+    --plus-repo, -p <URI>   Usar um repositório adicional.
+    --plus-content <ETIQUETA>
+                            Adicionalmente, usar repositórios desabilitados fornecendo uma palavra
+                            chave específica. Tente '--plus-content debug' para habilitar os
+                            repositórios indicando para fornecer os pacotes de depuração.
+    --disable-repositories  Não ler os metadados dos repositórios.
+    --no-refresh            Não atualizar os repositórios.
+    --no-cd                 Ignorar os repositórios em CD/DVD.
+    --no-remote             Ignorar os repositórios remotos.
+    --releasever            Definir o valor de $releasever em todos os arquivos .repo (padrão:
+                            versão da distribuição)
+
+  Opções de destino
+
+    --root, -R <DIR>        Operar em um diretório raiz diferente.
+    --installroot <DIR>     Opere em um diretório raiz diferente, mas compartilhe repositórios com o
+                            host.
+    --disable-system-resolvables
+                            Não ler os pacotes instalados.
+
+Comandos:
+
+      help, ?               Exibir a ajuda
+      shell, sh             Aceitar vários comandos por vez.
+
+  Gerenciamento de repositórios:
+
+      repos, lr             Lista todos os repositórios definidos.
+      addrepo, ar           Adicionar um novo repositório.
+      removerepo, rr        Remover o repositório especificado.
+      renamerepo, nr        Renomear o repositório especificado.
+      modifyrepo, mr        Alterar o repositório especificado.
+      refresh, ref          Atualizar todos os repositórios.
+      clean, cc             Limpa caches locais.
+
+  Gerenciamento de serviços:
+
+      services, ls          Listar todos os serviços definidos.
+      addservice, as        Adicionar um novo serviço.
+      modifyservice, ms     Alterar o serviço especificado.
+      removeservice, rs     Remover o serviço especificado.
+      refresh-services, refs
+                            Atualizar todos os serviços.
+
+  Gerenciamento de software:
+
+      install, in           Instalar pacotes.
+      remove, rm            Remover pacotes.
+      verify, ve            Verificar a integridade das dependências dos pacotes.
+      source-install, si    Instalar pacotes fonte e suas dependências de compilação.
+      install-new-recommends, inr
+                            Instalar pacotes recém adicionados recomendados pelos pacotes
+                            instalados.
+
+  Gerenciamento de atualizações:
+
+      update, up            Atualizar os pacotes instalados com versões mais recentes.
+      list-updates, lu      Listar as atualizações disponíveis.
+      patch                 Instalar as correções necessárias.
+      list-patches, lp      Listar as atualizações disponíveis.
+      dist-upgrade, dup     Realiza a atualização da distribuição.
+      patch-check, pchk     Verificar por correções.
+
+  Pesquisa:
+
+      search, se            Pesquisar por pacotes que correspondam a um padrão.
+      info, if              Exibir todas as informações dos pacotes especificados.
+      patch-info            Exibir todas as informações das correções especificadas.
+      pattern-info          Exibir todas as informações dos padrões especificados.
+      product-info          Exibir todas as informações dos produtos especificados.
+      patches, pch          Listar todas as correções disponíveis.
+      packages, pa          Listar todos os pacotes disponíveis.
+      patterns, pt          Listar todos os padrões disponíveis.
+      products, pd          Listar todos os produtos disponíveis.
+      what-provides, wp     Listar pacotes que forneçam o recurso especificado.
+
+  Bloqueios de pacotes:
+
+      addlock, al           Adicionar um bloqueio de pacote.
+      removelock, rl        Remover um bloqueio de pacote.
+      locks, ll             Lista os bloqueios de pacotes atuais.
+      cleanlocks, cl        Remove bloqueios sem utilidade.
+
+  Gerenciamento Local:
+
+      locales, lloc         Listar localidades solicitadas (códigos de idiomas).
+      addlocale, aloc       Adicionar localidade (s) às localidades solicitadas.
+      removelocale, rloc    Remover local (ais) das localidades solicitadas.
+
+  Outros comandos:
+
+      versioncmp, vcmp      Comparar textos de duas versões.
+      targetos, tos         Exibir o texto de ID do sistema operacional de destino.
+      licenses              Exibir relatório sobre licenças e EULAs dos pacotes instalados.
+      download              Baixar os RPMs especificados na linha de comando em uma pasta local.
+      source-download       Baixa os RPMs fontes para todos os pacotes instalados em um diretório
+                            local.
+      needs-rebooting       Verifique se o sinalizador de necessidade de reinicialização foi
+                            definido.
+      ps                    Lista os processos em execução que ainda podem usar arquivos e
+                            bibliotecas removidas por atualizações recentes.
+      purge-kernels         Remover kernels antigos.
+
+  Subcomandos:
+
+      subcommand            Lista os subcomandos disponíveis.
+
+Digite 'zypper help <COMMAND>' para ajuda específica sobre o comando.
