@@ -1,0 +1,72 @@
+#Repositorio RPM e YUM
+
+*Instalando pacotes
+rpm -i pacote.rpm
+rpm -ivh -> Instala pacote e (vh) exibem o progresso da instalação
+
+rpm -U pacote.rpm -> atualiza ou instala pacote
+
+rpm -F pacote.rpm ou --freshen -> Atualiza um pacote apenas se estiver instalado
+
+rpm -V (--verify) pacote.rpm -> Verifica arquivos criados na instalação e exibi dados do mesmo.
+
+rpm -e (--erase) pacote.rpm -> Desinstala um pacote
+
+rpm -q (--query) pacote.rpm -> Inspeciona pacotes e arquivos
+
+*Subopçoes do rpm
+
+rpm -qa ou --query --all -> Consulta pacotes instalados
+
+rpm -qc ou --query --configfiles -> Lista arquivos de configuração do pacote
+
+rpm -qd ou rpm --query --docfiles -> Lista documentação do pacote
+
+rpm -qf ou --query --file -> Informa qual pacote instalou o arquivo indicado
+
+rpm -qi ou --query --info -> Exibe informações do pacote
+
+rpm -ql ou --query --list -> Lista arquivos contidos no pacotes 
+
+rpm -qp ou --query --package -> Faz a inspeção de um pacote não instalado
+
+rpm -qR ou --query --requires mostra os pacotes necessarios(dependencias)
+
+rpm --query --whatrequires -> Lista programas que dependem do pacote indicado.
+
+#Combinando opções
+rpm -qpR pacote.rpm -> Mostra dependencias de um pacote não instalado
+
+#Resolvendo conflitos de dependencias
+--nodeps  --force
+usar opção --test -> Exibe qual sera o resultado
+
+
+
+#Conversao e Extração 
+
+Para listar conteudo do pacote.rpm usar comdando rpm2cpio e redireciona saido para cpio
+
+"Ex: rpm2cpio VirtualBox-4.3.0_8990_fedora18_1.x86_64.rpm | cpio -t"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
