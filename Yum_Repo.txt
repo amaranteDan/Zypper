@@ -6,9 +6,14 @@ rpm -ivh -> Instala pacote e (vh) exibem o progresso da instalação
 
 rpm -U pacote.rpm -> atualiza ou instala pacote
 
+
 rpm -F pacote.rpm ou --freshen -> Atualiza um pacote apenas se estiver instalado
 
+rpm -Fvh *.rpm  -> Atualiza grupo de pacotes 
+
 rpm -V (--verify) pacote.rpm -> Verifica arquivos criados na instalação e exibi dados do mesmo.
+
+rpm -Va -> Verifica todos os pacotes instalados 
 
 rpm -e (--erase) pacote.rpm -> Desinstala um pacote
 
@@ -50,6 +55,19 @@ Para listar conteudo do pacote.rpm usar comdando rpm2cpio e redireciona saido pa
 "Ex: rpm2cpio VirtualBox-4.3.0_8990_fedora18_1.x86_64.rpm | cpio -t"
 
 
+*Verificar chave gpg
+rpm -qa gpg-pubkey*
+rpm -qi gpg-pubkey-(chave a ser pesquisada)
+
+#Testando chave
+
+rpm -K aquivo.rpm
+
+#########################################################################
+Usando o Yum
+
+yum check-update
+##########################################################################
 
 
 
