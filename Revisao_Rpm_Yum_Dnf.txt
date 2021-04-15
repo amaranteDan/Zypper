@@ -1,0 +1,200 @@
+102.5 Gerenciamento de pacotes RPM - YUM - DNF - ZYPPER
+
+Red Hat Package Manager - Desenvolvido pela Red Hat.
+Usada nas distribuições Fedora, CentOs, openSUSE.
+O administrador de pacotes é feito pelo rpm.
+A partir do Fedora 22, o gerenciador de pacotes oficial é o DNF (Dandfied Yum)
+
+******************************************************************************
+
+rpm -i ou --install - Instala pacote
+	-U ou --update - Atualiza ou instala pacote
+	-F ou --freshen - Atualiza um pacote se ja estiver instalado;
+	-V ou --verify - Verifica arquivos criados na instalação, tamanho, data, soma MD5 etc
+	-e ou --erase - Desinstala um pacote
+	-q ou --query - Inspeciona pacotes e arquivos.
+
+***  Rpm com subopções:
+
+rpm -qa ou rpm --query --all Consulta todos os pacotes instalados
+
+rpm -qc ou rpm --query --configfiles <pacote> Lista arquivos de configuração do pacote
+rpm -qd ou rpm --query --docfiles <pacote> Lista a documentação do pacote
+rpm -qf ou rpm --query --file <caminho_do_arquivo> Informa qual pacote instalou o arquivo indicado
+rpm -qi ou rpm --query --info <pacote> Exibe as informações completa do pacote, como versão e descrição
+rpm -ql ou rpm --query --list <pacote> Lista o conteudo do pacote
+rpm -qp ou rpm --query --package <pacote.rpm> Faz a inspeção de um arquivo de pacote não instalado. 
+rpm -qR ou rpm --query --requires <pacote> Mostra as dependencias do pacote indicado
+rpm --query -whatrequires <pacote> Mostra informações sobre quais programas dependem do pacote indicado.
+
+
+*** Combinando opções
+Ex: rpm -qpR [--query --package --requires] <pacote> Mostra as dependencias de um pacote não instalado.
+
+*** Pacotes com conflito de dependencias
+Obs: "isso pode ser feito, mas nunca é o recomendado"
+
+rpm -qi <pacote.rpm> --nodeps --force  Instala um pacote de maneira forçada e sem levar em conta as dependencias
+	--test Exibe qual sera o resultado caso o pacote seja instalado.
+
+*** Conversão e extração
+
+Examples:
+
+  # Copy files named in name-list to the archive
+
+  cpio -o < name-list [> archive]
+
+  # Extract files from the archive
+
+  cpio -i [< archive]
+
+  # Copy files named in name-list to destination-directory
+
+  cpio -p destination-directory < name-list
+
+
+Para lista o conteudo de um pacote RPM usa se o rpm2cpio. Mostra na saida padrão o conteudo RPM no formato cpio. E possivel extrair
+
+Ex : rpm2cpio VirtualBox-4.3-4.3.0_01111_fedora19-1.x86_64.rpm | cpio -t -Lista o conteudo do pacote
+
+*** Para extrair pode usra as opções:
+	-i e -d -v : -i determina a extração e | -d obriga a criação da arvore de diretorio | -v Exibe o progresso
+
+Ex : rpm2cpio VirtualBox-4.3-4.3.0_01111_fedora19-1.x86_64.rpm | cpio -idv '*pdf' - Todo arquivo pdf sera extraido para sua arvore
+de diretorio
+
+*** Verificando a assinatura de pacotes - Fedora as chaves são incorporadas ao banco de dados do rpm.
+rpm --import /usr/share/rhn/RPM-GPG-KEY-FEDORA
+
+* Checando a assinatura
+rpm --checksig <pacote>
+
+*** Verificando a integridade do pacote
+rpm -Va - Verifica todo os pacotes instalados, gerando uma saída extensa.
+
+.  - Significa que o teste foi bem sucedido
+?  - Teste não pode ser realizado
+M  - A permissão ou tipo de arquivo mudou
+S  - Tamanho diferente do original.
+5  - A soma do md5 é diferente
+D  - O dispositivo foi modificado
+L  - O link simbolico foi modificado
+U  - O dono do arquivo mudou
+G  - O grupo do arquivo mudou
+T  - A data do arquivo mudou
+
+Ex: Saída do comando:  rpm -Va
+
+.M....G..  g /var/log/lastlog
+.M.......  c /etc/crypto-policies/back-ends/nss.config
+.M.......  g /boot/System.map-5.8.15-301.fc33.x86_64
+.M.......  g /boot/initramfs-5.8.15-301.fc33.x86_64.img
+.......T.    /lib/modules/5.8.15-301.fc33.x86_64/modules.builtin.alias.bin
+.M.......  g /var/lock/iscsi
+.M.......  g /var/lock/iscsi/lock
+.M.......  g /var/lib/plymouth/boot-duration
+....L....  c /etc/nsswitch.conf
+....L....  c /etc/pam.d/fingerprint-auth
+....L....  c /etc/pam.d/password-auth
+....L....  c /etc/pam.d/postlogin
+....L....  c /etc/pam.d/smartcard-auth
+....L....  c /etc/pam.d/system-auth
+.M....G..  g /var/log/lastlog
+.M.......  c /etc/machine-id
+.M.......  g /var/log/btmp
+.M....G..  g /var/log/journal
+.M.......  g /etc/udev/hwdb.bin
+.M.......  g /var/lib/systemd/random-seed
+.M.......  g /boot/System.map-5.11.12-200.fc33.x86_64
+.M.......  g /boot/initramfs-5.11.12-200.fc33.x86_64.img
+.......T.    /lib/modules/5.11.12-200.fc33.x86_64/modules.builtin.alias.bin
+.M.......  g /var/lib/setroubleshoot/email_alert_recipients
+.M.......  g /run/cockpit
+..5....T.    /var/lib/selinux/targeted/active/commit_num
+.......T.    /var/lib/selinux/targeted/active/file_contexts
+.......T.    /var/lib/selinux/targeted/active/homedir_template
+S.5....T.    /var/lib/selinux/targeted/active/policy.kern
+.......T.    /var/lib/selinux/targeted/active/seusers
+.......T.    /var/lib/selinux/targeted/active/users_extra
+
+
+*** Gerenciador de Pacotes YUM
+
+O yum é semelhante ao apt-get do Debian. Instala programas da internet, identifica e instala dependencias.
+
+Arquivo de configuração /etc/yum.conf
+Na nova versão usando o dnf como substituto
+
+/etc/dnf/dnf.conf
+
+[main]
+installonly_limit=3
+clean_requirements_on_remove=True
+best=False
+skip_if_unavailable=True
+
+/etc/yum.conf
+cachedir : padrão /var/cache/yum ou /var/cache/dnf
+
+gpgcheck=1 -> Determina se dever ser ou não verificado a assinatura gpg.
+keepcache: Valor 1 ou 0 - Determina se o yum deve manter os pacotes e arquivos após uma instalação bem sucedida
+reposdir: Lista os diretorios onde o yum procurara arquivos .repo. Padrão /etc/yum.repos.d -> usa /etc/yum.conf
+debuglevel: Nivel de mensagens de aviso que de 0 a 10. Padrão é 2
+errorlevel: Nivel de mensagens de aviso de 0 a 10. Padrão é 2
+logfile: log do yum /var/log/yum | dnf /var/log/dnf/dnf.log e /var/log/dnf/dnf.repo.log
+
+Exemplo do arquivo /dnf/dnf.repo
+  
+[fedora]
+name=Fedora $releasever - $basearch
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/os/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+enabled=1
+countme=1
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+
+[fedora-debuginfo]
+name=Fedora $releasever - $basearch - Debug
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/$basearch/debug/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$releasever&arch=$basearch
+enabled=0
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+
+[fedora-source]
+name=Fedora $releasever - Source
+#baseurl=http://download.example/pub/fedora/linux/releases/$releasever/Everything/source/tree/
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-source-$releasever&arch=$basearch
+enabled=0
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+
+
+*** Comando yum
+
+****Buscar pacotes
+yum search <pacote> - Localiza determinado pacote com o termo solicitado.
+dnf search <pacote>
+
+*** Instalar pacotes
+yum install <pacote>
+dnf install <pacote>
+
+yum groupinstall <grupo> - Instala grupo de pacotes 
+yum group list - Pode consultar grupo de pacotes
+
+
